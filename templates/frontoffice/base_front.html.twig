@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %} Personnel | {% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('frontoffice/css/bootstrap.min.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('plugins/vendor/select2/dist/css/select2.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('plugins/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+            {#<style>
+                body {
+                    padding-top: 5rem;
+                }
+            </style>#}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}" />
+    </head>
+
+    <!-- Class body -->
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="{{ path('home_index') }}">Personnel</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('home_index') }}">Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('eternaly_login') }}">Se connecter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-toggle="modal" data-target="#id-signup-modal">S'inscrire</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="container">
+            {% block body %}{% endblock %}
+        </main>
+
+    {% block javascripts %}
+        <script type="text/javascript" src="{{ asset('frontoffice/js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontoffice/js/popper.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontoffice/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('plugins/bootstrap-validator/bootstrapValidator.js') }}"></script>
+        <!--calendar-->
+        <script type="text/javascript" src="{{ asset('frontoffice/js/calendar/moment-with-locales.min.js') }}"></script>
+        <script src="{{ asset('plugins/vendor/select2/dist/js/select2.min.js') }}"></script>
+        <script src="{{ asset('plugins/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+        {#<script src="{{ asset('frontoffice/js/script.js') }}"></script>#}
+        <script src="{{ asset('plugins/vendor/moment/min/moment.min.js') }}"></script>
+        <script src="{{ asset('plugins/vendor/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+        <script src="{{ asset('plugins/vendor/fullcalendar/dist/locale/fr.js') }}"></script>
+    {% endblock %}
+    </body>
+</html>

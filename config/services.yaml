@@ -1,0 +1,24 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+imports:
+    - { resource: "@UserBundle/Resources/config/services.yml" }
+
+parameters:
+    locale: 'fr'
+    from_email_address: '%env(resolve:FROM_EMAIL_ADDRESS)%'
+    from_firstname: '%env(resolve:FROM_FIRSTNAME)%'
+
+services:
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{Migrations}'
+
+    sc.manager.utils:
+        class: App\Score\Service\MetierManagerBundle\Metier\Utils\ServiceMetierUtils
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+        public: true
