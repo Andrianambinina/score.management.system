@@ -5,12 +5,12 @@ namespace App\Score\Service\MetierManagerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AbsenceType
+ * Matiere
  *
- * @ORM\Table(name="absence_type")
+ * @ORM\Table(name="matiere")
  * @ORM\Entity
  */
-class AbsenceType
+class Matiere
 {
     /**
      * @var integer
@@ -24,9 +24,16 @@ class AbsenceType
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=50, nullable=true)
+     * @ORM\Column(name="libelle", type="string", length=100, nullable=false)
      */
     private $libelle;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbr_candidate_proximity", type="integer" ,nullable=true)
+     */
+    private $coefficient;
 
 
     /**
@@ -51,5 +58,21 @@ class AbsenceType
     public function setLibelle($libelle)
     {
         $this->libelle = $libelle;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCoefficient()
+    {
+        return $this->coefficient;
+    }
+
+    /**
+     * @param int $coefficient
+     */
+    public function setCoefficient($coefficient)
+    {
+        $this->coefficient = $coefficient;
     }
 }
