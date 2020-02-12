@@ -1,0 +1,7 @@
+etudiant_index:
+    path: /
+    defaults: { _controller: AdminBundle:Etudiant:index }
+
+etudiant_new:
+    path: /new
+    defaults: { _controller: AdminBundle:Etudiant:new }

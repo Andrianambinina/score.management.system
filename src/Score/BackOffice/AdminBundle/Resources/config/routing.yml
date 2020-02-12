@@ -1,3 +1,7 @@
-prs_dashboard:
+sc_dashboard:
     resource: "@AdminBundle/Resources/config/routing/dashboard.yml"
     prefix:   /
+
+sc_etudiant:
+    resource: "@AdminBundle/Resources/config/routing/etudiant.yml"
+    prefix:   /etudiant
