@@ -6,13 +6,14 @@ use App\Score\Service\MetierManagerBundle\Entity\Etudiant;
 use App\Score\Service\MetierManagerBundle\Form\EtudiantType;
 use App\Score\Service\MetierManagerBundle\Utils\EntityName;
 use App\Score\Service\MetierManagerBundle\Utils\ServiceName;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class EtudiantController
  */
-class EtudiantController extends Controller
+class EtudiantController extends AbstractController
 {
     /**
      * Display all students
@@ -74,7 +75,6 @@ class EtudiantController extends Controller
         $_form->handleRequest($_request);
         
         if ($_form->isSubmitted() && $_form->isValid()) {
-//dd($_etudiant);
             $_utils_manager->saveEntity($_etudiant, 'new');
             $_flash_message = $this->get('translator')->trans('Ajout effectué avec succès');
             $_utils_manager->setFlash('success', $_flash_message);
@@ -96,7 +96,7 @@ class EtudiantController extends Controller
     public function createEditForm(Etudiant $_etudiant)
     {
         $_form = $this->createForm(EtudiantType::class, $_etudiant, [
-            'action' => $this->generateUrl('etudiant_edit', array('id' => $_etudiant->getId())),
+            'action' => $this->generateUrl('etudiant_update', array('id' => $_etudiant->getId())),
             'method' => 'PUT'
         ]);
 
@@ -111,7 +111,6 @@ class EtudiantController extends Controller
      */
     public function updateAction(Request $_request, Etudiant $_etudiant)
     {
-        die('eto');
         // Get manager
         $_utils_manager = $this->get(ServiceName::SRV_METIER_UTILS);
 
@@ -119,7 +118,6 @@ class EtudiantController extends Controller
         $_edit_form->handleRequest($_request);
 
         if ($_edit_form->isValid()) {
-//dd($_etudiant);
             $_utils_manager->saveEntity($_etudiant, 'update');
 
             $_flash_message = $this->get('translator')->trans('Modification effectué avec succès');
@@ -132,5 +130,42 @@ class EtudiantController extends Controller
             'etudiant'  => $_etudiant,
             'edit_form' => $_edit_form->createView()
         ]);
+    }
+
+    /**
+     * Delete student
+     * @param Request $_request
+     * @param Etudiant $_etudiant
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $_request, Etudiant $_etudiant)
+    {
+        // Get manager
+        $_utils_manager = $this->get(ServiceName::SRV_METIER_UTILS);
+
+        $_form = $this->createDeleteForm($_etudiant);
+        $_form->handleRequest($_request);
+
+        if ($_request->isMethod('GET') || ($_form->isSubmitted() && $_form->isValid())) {
+            $_utils_manager->deleteEntity($_etudiant);
+
+            $_flash_message = $this->get('translator')->trans('Suppression effectuée avec succès');
+            $_utils_manager->setFlash('success', $_flash_message);
+        }
+
+        return $this->redirect($this->generateUrl('etudiant_index'));
+    }
+
+    /**
+     * Create delete form
+     * @param Etudiant $_etudiant
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function createDeleteForm(Etudiant $_etudiant)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('etudiant_delete', array('id' => $_etudiant->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 }
