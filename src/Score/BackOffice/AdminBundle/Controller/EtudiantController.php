@@ -60,6 +60,7 @@ class EtudiantController extends Controller
         $_form->handleRequest($_request);
         
         if ($_form->isSubmitted() && $_form->isValid()) {
+//dd($_etudiant);
             $_utils_manager->saveEntity($_etudiant, 'new');
             $_flash_message = $this->get('translator')->trans('Ajout effectué avec succès');
             $_utils_manager->setFlash('success', $_flash_message);

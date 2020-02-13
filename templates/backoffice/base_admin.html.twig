@@ -42,6 +42,7 @@
 
         <!-- Google Font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -61,7 +62,7 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            {% include 'backoffice/base_admin_footer.html.twig' %}
+            {#{% include 'backoffice/base_admin_footer.html.twig' %}#}
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
                  immediately after the control sidebar -->
@@ -107,6 +108,7 @@
             <!-- AdminLTE for demo purposes -->
             <script src="{{ asset('plugins/admin-lte/dist/js/demo.js') }}"></script>
             <script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
         {% endblock %}
     </body>
 </html>

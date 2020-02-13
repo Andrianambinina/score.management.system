@@ -3,6 +3,7 @@
 namespace App\Score\Service\MetierManagerBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,10 +23,15 @@ class EtudiantType extends AbstractType
                 'required' => true,
                 'attr'     => ['placeholder' => "Nom de l'étudiant"]
             ))
+            ->add('email', EmailType::class, array(
+                'label'    => "Email",
+                'required' => false,
+                'attr'     => ['placeholder' => "Email de l'étudiant"]
+            ))
             ->add('adresse', TextType::class, array(
                 'label'    => "Adresse",
                 'required' => false,
-                'attr'     => ['placeholder' => "Email de l'étudiant"]
+                'attr'     => ['placeholder' => "Adresse de l'étudiant"]
             ))
             ->add('sexe', ChoiceType::class, array(
                 'label'    => "Sexe",
@@ -43,7 +49,7 @@ class EtudiantType extends AbstractType
             ))
             ->add('annee', DateTimeType::class, array(
                 'label'    => "Année scolaire",
-                'format'   => 'dd/MM/yyyy',
+                'format'   => 'yyyy',
                 'widget'   => 'single_text',
                 'required' => false
             ))
