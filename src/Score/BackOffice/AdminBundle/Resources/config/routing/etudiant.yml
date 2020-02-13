@@ -1,7 +1,19 @@
 etudiant_index:
     path: /
     defaults: { _controller: AdminBundle:Etudiant:index }
+    methods: GET
 
 etudiant_new:
     path: /new
     defaults: { _controller: AdminBundle:Etudiant:new }
+    methods: [GET, POST]
+
+etudiant_edit:
+    path: /{id}/edit
+    defaults: { _controller: AdminBundle:Etudiant:edit }
+    methods: [GET, POST]
+
+etudiant_update:
+    path: /{id}/update
+    defaults: { _controller: AdminBundle:Etudiant:update }
+    methods: [POST, PUT]

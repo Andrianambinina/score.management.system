@@ -35,7 +35,8 @@
                                             <td>{{ etudiant.niveau }}</td>
                                             <td>{{ etudiant.annee|date('Y') }}</td>
                                             <td>
-                                                <a href="#" class="mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ path('etudiant_edit', { 'id': etudiant.id }) }}"
+                                                   class="mr-2"><i class="fa fa-edit"></i></a>
                                                 <a href="#" class="mr-2"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
@@ -63,6 +64,7 @@
                 "bFilter": true,
                 // "bPaginate": false,
                 "bInfo": false,
+                "lengthChange": false,
                 "oLanguage": {
                     "sProcessing": '<i class="fa fa-spinner fa-pulse fa-fw"></i>',
                     "sSearch": "Filtrer: ",
