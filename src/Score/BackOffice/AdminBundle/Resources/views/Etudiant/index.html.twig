@@ -1,25 +1,23 @@
 {% extends "backoffice/base_admin.html.twig" %}
 
+{% block title %}{{ parent() }} Liste des étudiants {% endblock %}
+
 {% block body %}
     <div class="row">
-        <div class="col-xs-12">
-            <div class="mb-5">
-                <a href="{{ path('etudiant_new') }}" class="btn btn-primary">Ajout étudiant</a>
-            </div>
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Liste des etudiants</h3>
+        <div class="col-md-12">
+            <div class="w-100 d-flex flex-column flex-md-row justify-content-between">
+                <div class="d-inline-flex mb-4 align-items-center justify-content-between justify-content-md-start">
+                    <h3 class="mr-3">Liste des etudiants</h3>
+                    <a href="{{ path('etudiant_new') }}" class="btn btn-primary">Ajout étudiant</a>
                 </div>
-                <!-- /.box-header -->
+            </div>
+
+            <div class="box">
                 <div class="box-body">
-                    <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                        <div class="row">
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-6"></div>
-                        </div>
+                    <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table id="id-list-student" class="table">
+                                <table id="id-list-student" class="table dataTable">
                                     <thead>
                                     <tr role="row">
                                         <th>Nom</th>
@@ -31,14 +29,14 @@
                                     </thead>
                                     <tbody>
                                     {% for etudiant in etudiants %}
-                                        <tr>
+                                        <tr role="row">
                                             <td>{{ etudiant.nom }}</td>
                                             <td>{{ etudiant.adresse }}</td>
                                             <td>{{ etudiant.niveau }}</td>
                                             <td>{{ etudiant.annee|date('Y') }}</td>
                                             <td>
-                                                <a href="#"><i class="fa fa-edit"></i></a>
-                                                <a href="#"><i class="fa fa-trash"></i></a>
+                                                <a href="#" class="mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" class="mr-2"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -48,7 +46,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.box-body -->
             </div>
             <!-- /.box -->
         </div>
@@ -64,8 +61,10 @@
                 "aaSorting": [],
                 "bProcessing": true,
                 "bFilter": true,
+                // "bPaginate": false,
+                "bInfo": false,
                 "oLanguage": {
-                    "sProcessing": '<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>',
+                    "sProcessing": '<i class="fa fa-spinner fa-pulse fa-fw"></i>',
                     "sSearch": "Filtrer: ",
                     "sLengthMenu": "Afficher _MENU_ enregistrement par page",
                     "sEmptyTable": "Aucun enregistrement trouvé",
