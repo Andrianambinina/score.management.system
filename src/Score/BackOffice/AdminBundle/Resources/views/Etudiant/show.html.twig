@@ -5,8 +5,8 @@
 {% block body %}
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
                     <h5 class="card-title">Bulletin</h5>
                     <p class="card-text"><b>Nom</b> : {{ etudiants[0].nom }}</p>
                     <p class="card-text"><b>Niveau</b> : {{ etudiants[0].niveau }}</p>
@@ -34,7 +34,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="3"></td>
-                                <td>Moyenne: {{ average }}</td>
+                                <td>Moyenne: {{ average|round(2, 'floor') }}</td>
                             </tr>
                             <tr>
                                 <td colspan="3"></td>
