@@ -7,7 +7,6 @@ use App\Score\Service\MetierManagerBundle\Form\EtudiantType;
 use App\Score\Service\MetierManagerBundle\Utils\EntityName;
 use App\Score\Service\MetierManagerBundle\Utils\ServiceName;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

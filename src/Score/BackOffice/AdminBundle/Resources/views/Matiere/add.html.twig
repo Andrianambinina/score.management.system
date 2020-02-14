@@ -1,55 +1,25 @@
 {% extends "backoffice/base_admin.html.twig" %}
 
-{% block title %}{{ parent() }} Ajout étudiant{% endblock %}
+{% block title %}{{ parent() }} Ajout matière{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Ajout étudiant</h3>
+                    <h3 class="box-title">Ajout matière</h3>
                 </div>
-                <!-- /.box-header -->
-                <!-- form start -->
                 {{ form_start(form) }}
-                <div class="box-body">
-                    {{ form_row(form.nom) }}
-                    {{ form_row(form.email) }}
-                    {{ form_row(form.adresse) }}
-                    {{ form_row(form.sexe) }}
-                    {{ form_row(form.niveau) }}
-                    <div class="form-group">
-                        <label>{{ form_label(form.annee) }}</label>
-                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                            {{ form_widget(form.annee, {
-                                'class': 'form-control datetimepicker-input',
-                                'data-target': '#datetimepicker1'
-                            })
-                            }}
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
+                    <div class="box-body">
+                        {{ form_row(form.libelle) }}
+                        {{ form_row(form.coefficient) }}
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
                         </div>
                     </div>
-
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Envoyer</button>
-                    </div>
-                </div>
                 {{ form_end(form) }}
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker1').datetimepicker({
-                format: 'YYYY'
-            });
-        });
-    </script>
 {% endblock %}

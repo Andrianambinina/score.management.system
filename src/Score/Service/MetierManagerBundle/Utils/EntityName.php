@@ -8,6 +8,7 @@ namespace App\Score\Service\MetierManagerBundle\Utils;
  */
 class EntityName
 {
-    const USER = 'UserBundle:User';
+    const USER     = 'UserBundle:User';
     const ETUDIANT = 'MetierManagerBundle:Etudiant';
+    const MATIERE  = 'MetierManagerBundle:Matiere';
 }

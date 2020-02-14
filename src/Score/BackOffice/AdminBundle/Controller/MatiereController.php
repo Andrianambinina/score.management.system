@@ -2,18 +2,17 @@
 
 namespace App\Score\BackOffice\AdminBundle\Controller;
 
-use App\Score\Service\MetierManagerBundle\Entity\Etudiant;
-use App\Score\Service\MetierManagerBundle\Form\EtudiantType;
+use App\Score\Service\MetierManagerBundle\Entity\Matiere;
+use App\Score\Service\MetierManagerBundle\Form\MatiereType;
 use App\Score\Service\MetierManagerBundle\Utils\EntityName;
 use App\Score\Service\MetierManagerBundle\Utils\ServiceName;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class EtudiantController
+ * Class MatiereController
  */
-class EtudiantController extends AbstractController
+class MatiereController extends AbstractController
 {
     /**
      * Display all students
@@ -24,40 +23,40 @@ class EtudiantController extends AbstractController
         // Get manager
         $_utils_manager = $this->get(ServiceName::SRV_METIER_UTILS);
 
-        $_etudiants = $_utils_manager->getAllEntities(EntityName::ETUDIANT);
+        $_matieres = $_utils_manager->getAllEntities(EntityName::MATIERE);
 
-        return $this->render('AdminBundle:Etudiant:index.html.twig', [
-            'etudiants' => $_etudiants
+        return $this->render('AdminBundle:Matiere:index.html.twig', [
+            'matieres' => $_matieres
+        ]);
+    }
+
+    /**
+     * @param Matiere $_matiere
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Matiere $_matiere)
+    {
+        $_edit_form = $this->createEditForm($_matiere);
+
+        return $this->render('AdminBundle:Matiere:edit.html.twig', [
+            'matiere'   => $_matiere,
+            'edit_form' => $_edit_form->createView()
         ]);
     }
 
     /**
      * Create create form
-     * @param Etudiant $_etudiant
+     * @param Matiere $_matiere
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createCreateForm(Etudiant $_etudiant)
+    public function createCreateForm(Matiere $_matiere)
     {
-        $_form = $this->createForm(EtudiantType::class, $_etudiant, [
-            'action' => $this->generateUrl('etudiant_new'),
+        $_form = $this->createForm(MatiereType::class, $_matiere, [
+            'action' => $this->generateUrl('matiere_new'),
             'method' => 'POST'
         ]);
 
         return $_form;
-    }
-
-    /**
-     * @param Etudiant $_etudiant
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function editAction(Etudiant $_etudiant)
-    {
-        $_edit_form = $this->createEditForm($_etudiant);
-
-        return $this->render('AdminBundle:Etudiant:edit.html.twig', [
-            'etudiant'  => $_etudiant,
-            'edit_form' => $_edit_form->createView()
-        ]);
     }
 
     /**
@@ -70,33 +69,33 @@ class EtudiantController extends AbstractController
         // Get manager
         $_utils_manager = $this->get(ServiceName::SRV_METIER_UTILS);
 
-        $_etudiant = new Etudiant();
-        $_form     = $this->createCreateForm($_etudiant);
+        $_matiere = new Matiere();
+        $_form    = $this->createCreateForm($_matiere);
         $_form->handleRequest($_request);
-        
+
         if ($_form->isSubmitted() && $_form->isValid()) {
-            $_utils_manager->saveEntity($_etudiant, 'new');
+            $_utils_manager->saveEntity($_matiere, 'new');
             $_flash_message = $this->get('translator')->trans('Ajout effectué avec succès');
             $_utils_manager->setFlash('success', $_flash_message);
 
-            return $this->redirect($this->generateUrl('etudiant_index'));
+            return $this->redirect($this->generateUrl('matiere_index'));
         }
 
-        return $this->render('AdminBundle:Etudiant:add.html.twig', [
-            'etudiant' => $_etudiant,
-            'form'     => $_form->createView()
+        return $this->render('AdminBundle:Matiere:add.html.twig', [
+            'matiere' => $_matiere,
+            'form'    => $_form->createView()
         ]);
     }
 
     /**
      * Create edit form
-     * @param Etudiant $_etudiant
+     * @param Matiere $_matiere
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createEditForm(Etudiant $_etudiant)
+    public function createEditForm(Matiere $_matiere)
     {
-        $_form = $this->createForm(EtudiantType::class, $_etudiant, [
-            'action' => $this->generateUrl('etudiant_update', array('id' => $_etudiant->getId())),
+        $_form = $this->createForm(MatiereType::class, $_matiere, [
+            'action' => $this->generateUrl('matiere_update', array('id' => $_matiere->getId())),
             'method' => 'PUT'
         ]);
 
@@ -106,66 +105,66 @@ class EtudiantController extends AbstractController
     /**
      * Update student
      * @param Request $_request
-     * @param Etudiant $_etudiant
+     * @param Matiere $_matiere
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function updateAction(Request $_request, Etudiant $_etudiant)
+    public function updateAction(Request $_request, Matiere $_matiere)
     {
         // Get manager
         $_utils_manager = $this->get(ServiceName::SRV_METIER_UTILS);
 
-        $_edit_form = $this->createEditForm($_etudiant);
+        $_edit_form = $this->createEditForm($_matiere);
         $_edit_form->handleRequest($_request);
 
         if ($_edit_form->isValid()) {
-            $_utils_manager->saveEntity($_etudiant, 'update');
+            $_utils_manager->saveEntity($_matiere, 'update');
 
             $_flash_message = $this->get('translator')->trans('Modification effectué avec succès');
             $_utils_manager->setFlash('success', $_flash_message);
 
-            return $this->redirect($this->generateUrl('etudiant_index'));
+            return $this->redirect($this->generateUrl('matiere_index'));
         }
 
-        return $this->render('AdminBundle:Etudiant:edit.html.twig', [
-            'etudiant'  => $_etudiant,
+        return $this->render('AdminBundle:Matiere:edit.html.twig', [
+            'matiere'   => $_matiere,
             'edit_form' => $_edit_form->createView()
         ]);
     }
 
     /**
+     * Create delete form
+     * @param Matiere $_matiere
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function createDeleteForm(Matiere $_matiere)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('matiere_delete', array('id' => $_matiere->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
+    }
+
+    /**
      * Delete student
      * @param Request $_request
-     * @param Etudiant $_etudiant
+     * @param Matiere $_matiere
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $_request, Etudiant $_etudiant)
+    public function deleteAction(Request $_request, Matiere $_matiere)
     {
         // Get manager
         $_utils_manager = $this->get(ServiceName::SRV_METIER_UTILS);
 
-        $_form = $this->createDeleteForm($_etudiant);
+        $_form = $this->createDeleteForm($_matiere);
         $_form->handleRequest($_request);
 
         if ($_request->isMethod('GET') || ($_form->isSubmitted() && $_form->isValid())) {
-            $_utils_manager->deleteEntity($_etudiant);
+            $_utils_manager->deleteEntity($_matiere);
 
             $_flash_message = $this->get('translator')->trans('Suppression effectuée avec succès');
             $_utils_manager->setFlash('success', $_flash_message);
         }
 
-        return $this->redirect($this->generateUrl('etudiant_index'));
-    }
-
-    /**
-     * Create delete form
-     * @param Etudiant $_etudiant
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function createDeleteForm(Etudiant $_etudiant)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('etudiant_delete', array('id' => $_etudiant->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
+        return $this->redirect($this->generateUrl('matiere_index'));
     }
 }

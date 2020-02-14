@@ -1,6 +1,6 @@
 {% extends "backoffice/base_admin.html.twig" %}
 
-{% block title %}{{ parent() }} Liste des étudiants {% endblock %}
+{% block title %}{{ parent() }} Liste des matières{% endblock %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -18,8 +18,8 @@
         <div class="col-md-12">
             <div class="w-100 d-flex flex-column flex-md-row justify-content-between">
                 <div class="d-inline-flex mb-4 align-items-center justify-content-between justify-content-md-start">
-                    <h3 class="mr-3">Liste des étudiants</h3>
-                    <a href="{{ path('etudiant_new') }}" class="btn btn-primary">Ajout étudiant</a>
+                    <h3 class="mr-3">Liste des matières</h3>
+                    <a href="{{ path('matiere_new') }}" class="btn btn-primary">Ajout matière</a>
                 </div>
             </div>
 
@@ -28,27 +28,24 @@
                     <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table id="id-list-student" class="table dataTable">
+                                <table id="id-list-matters" class="table dataTable">
                                     <thead>
                                     <tr role="row">
-                                        <th>Nom</th>
-                                        <th>Adresse</th>
-                                        <th>Niveau</th>
-                                        <th>Année</th>
+                                        <th>Libelle</th>
+                                        <th>Coefficient</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for etudiant in etudiants %}
+                                    {% for matiere in matieres %}
                                         <tr role="row">
-                                            <td>{{ etudiant.nom }}</td>
-                                            <td>{{ etudiant.adresse }}</td>
-                                            <td>{{ etudiant.niveau }}</td>
-                                            <td>{{ etudiant.annee|date('Y') }}</td>
+                                            <td>{{ matiere.libelle }}</td>
+                                            <td>{{ matiere.coefficient }}</td>
                                             <td>
-                                                <a href="{{ path('etudiant_edit', { 'id': etudiant.id }) }}"
+                                                <a href="{{ path('matiere_edit', { 'id': matiere.id }) }}"
                                                    class="mr-2"><i class="fa fa-edit"></i></a>
-                                                <a href="{{ path('etudiant_delete', { 'id': etudiant.id }) }}" class="mr-2 kl-remove-elt"><i class="fa fa-trash"></i></a>
+                                                <a href="{{ path('matiere_delete', { 'id': matiere.id }) }}"
+                                                   class="mr-2 kl-remove-elt"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -69,7 +66,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#id-list-student').DataTable({
+            $('#id-list-matters').DataTable({
                 "aaSorting": [],
                 "bProcessing": true,
                 "bFilter": true,

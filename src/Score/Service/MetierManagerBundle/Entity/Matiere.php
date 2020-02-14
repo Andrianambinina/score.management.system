@@ -31,7 +31,7 @@ class Matiere
     /**
      * @var integer
      *
-     * @ORM\Column(name="nbr_candidate_proximity", type="integer" ,nullable=true)
+     * @ORM\Column(name="coefficient", type="integer" ,nullable=true)
      */
     private $coefficient;
 

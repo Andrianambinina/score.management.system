@@ -1,24 +1,24 @@
-etudiant_index:
+matiere_index:
     path:     /
-    defaults: { _controller: "AdminBundle:Etudiant:index" }
+    defaults: { _controller: "AdminBundle:Matiere:index" }
     methods:  GET
 
-etudiant_new:
+matiere_new:
     path:     /new
-    defaults: { _controller: "AdminBundle:Etudiant:new" }
+    defaults: { _controller: "AdminBundle:Matiere:new" }
     methods:  [GET, POST]
 
-etudiant_edit:
+matiere_edit:
     path:     /edit/{id}
-    defaults: { _controller: "AdminBundle:Etudiant:edit" }
+    defaults: { _controller: "AdminBundle:Matiere:edit" }
     methods:  [GET, POST]
 
-etudiant_update:
+matiere_update:
     path:     /update/{id}
-    defaults: { _controller: "AdminBundle:Etudiant:update" }
+    defaults: { _controller: "AdminBundle:Matiere:update" }
     methods:  [POST, PUT]
 
-etudiant_delete:
+matiere_delete:
     path:     /delete/{id}
-    defaults: { _controller: "AdminBundle:Etudiant:delete" }
+    defaults: { _controller: "AdminBundle:Matiere:delete" }
     methods:  [GET, DELETE]

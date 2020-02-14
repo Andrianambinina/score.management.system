@@ -1,56 +1,25 @@
 {% extends "backoffice/base_admin.html.twig" %}
 
-{% block title %}{{ parent() }} Modification étudiant{% endblock %}
+{% block title %}{{ parent() }} Modification matière{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Modification étudiant</h3>
+                    <h3 class="box-title">Modification matière</h3>
                 </div>
-                <!-- /.box-header -->
-                <!-- form start -->
                 {{ form_start(edit_form) }}
-                <div class="box-body">
-                    {{ form_row(edit_form.nom) }}
-                    {{ form_row(edit_form.email) }}
-                    {{ form_row(edit_form.adresse) }}
-                    {{ form_row(edit_form.sexe) }}
-                    {{ form_row(edit_form.niveau) }}
-                    <div class="form-group">
-                        <label>{{ form_label(edit_form.annee) }}</label>
-                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                            {{ form_widget(edit_form.annee, {
-                                'class': 'form-control datetimepicker-input',
-                                'data-target': '#datetimepicker1'
-                                })
-                            }}
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
+                    <div class="box-body">
+                        {{ form_row(edit_form.libelle) }}
+                        {{ form_row(edit_form.coefficient) }}
+
+                        <div class="box-footer">
+                            <input type="submit" class="btn btn-primary" name="update_matiere" value="Envoyer"/>
                         </div>
                     </div>
-
-                    <div class="box-footer">
-                        <input type="submit" class="btn btn-primary" name="update_etudiant" value="Envoyer"/>
-                    </div>
-                </div>
                 {{ form_end(edit_form) }}
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker1').datetimepicker({
-                format: 'YYYY',
-                // language: 'fr'
-            });
-        });
-    </script>
 {% endblock %}

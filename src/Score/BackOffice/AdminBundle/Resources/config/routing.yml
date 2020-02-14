@@ -5,3 +5,7 @@ sc_dashboard:
 sc_etudiant:
     resource: "@AdminBundle/Resources/config/routing/etudiant.yml"
     prefix:   /etudiant
+
+sc_matiere:
+    resource: "@AdminBundle/Resources/config/routing/matiere.yml"
+    prefix:   /matiere
