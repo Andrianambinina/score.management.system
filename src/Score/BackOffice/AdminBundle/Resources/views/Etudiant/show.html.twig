@@ -1,63 +1,58 @@
 {% extends "backoffice/base_admin.html.twig" %}
 
-{% block title %}{{ parent() }} Liste des étudiants {% endblock %}
+{% block title %}{{ parent() }} Bulletin{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Etudiant détail</h5>
-                    <p class="card-text"><b>Nom</b> :Zo</p>
-                    <p class="card-text"><b>Niveau</b> :Master</p>
-                    <p class="card-text"><b>Année</b> :2018</p>
+                    <h5 class="card-title">Bulletin</h5>
+                    <p class="card-text"><b>Nom</b> : {{ etudiants[0].nom }}</p>
+                    <p class="card-text"><b>Niveau</b> : {{ etudiants[0].niveau }}</p>
+                    <p class="card-text"><b>Année</b> : {{ etudiants[0].annee|date('Y') }}</p>
                     <table class="table table-bordered">
                         <thead>
-                        <tr>
-                            <th>Désignation</th>
-                            <th>Coéfficient</th>
-                            <th>Note</th>
-                            <th>Note pondérée</th>
-                        </tr>
+                            <tr>
+                                <th>Désignation</th>
+                                <th>Coéfficient</th>
+                                <th>Note</th>
+                                <th>Note pondérée</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Mathématique</td>
-                            <td>4</td>
-                            <td>17</td>
-                            <td>68</td>
-                        </tr>
-                        <tr>
-                            <td>Physique</td>
-                            <td>4</td>
-                            <td>12</td>
-                            <td>48</td>
-                        </tr>
+                            {% for etudiant in etudiants %}
+                                <tr>
+                                    {#{{ dump(etudiant) }}#}
+                                    <td>{{ etudiant.libelle }}</td>
+                                    <td>{{ etudiant.coefficient }}</td>
+                                    <td>{{ etudiant.note }}</td>
+                                    <td>{{ etudiant.ponderee }}</td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                         <tfoot>
-                        <tr>
-                            <td colspan="3"></td>
-                            <td>Moyenne: 10</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"></td>
-                            <td>Observation: Admis</td>
-                        </tr>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td>Moyenne: {{ average }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td>
+                                    Observation:
+                                    {% if average >= 10 %}
+                                        <span class="badge badge-success">Admis</span>
+                                    {% elseif average >= 7.5 %}
+                                        <span class="badge badge-warning">Redoublant</span>
+                                    {% else %}
+                                        <span class="badge badge-danger">Exclus</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-
-    {#{% for etudiant in etudiants %}#}
-        {#<p>{{ etudiant.note.etudiant.nom }}</p>#}
-        {#<p>{{ etudiant.note.etudiant.niveau }}</p>#}
-        {#<p>{{ etudiant.note.etudiant.annee|date('Y') }}</p>#}
-        {#<p>{{ etudiant.note.matiere.libelle }}</p>#}
-        {#<p>{{ etudiant.note.matiere.coefficient }}</p>#}
-        {#<p>{{ etudiant.note.note }}</p>#}
-        {#<p>{{ etudiant.ponderee }}</p>#}
-        {#<p>{{ average }}</p>#}
-    {#{% endfor %}#}
 {% endblock %}

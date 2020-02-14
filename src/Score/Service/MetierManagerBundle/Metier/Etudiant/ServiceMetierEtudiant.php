@@ -36,7 +36,7 @@ class ServiceMetierEtudiant
     {
         $_note = EntityName::NOTE;
 
-        $_dql = "SELECT nt AS note, (nt.note * mt.coefficient) AS ponderee
+        $_dql = "SELECT et.nom, et.niveau, et.annee, mt.libelle, mt.coefficient, nt.note, (nt.note * mt.coefficient) AS ponderee
                  FROM $_note nt
                  JOIN nt.etudiant et
                  JOIN nt.matiere mt
