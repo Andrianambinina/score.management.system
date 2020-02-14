@@ -36,7 +36,7 @@ class ServiceMetierEtudiant
     {
         $_note = EntityName::NOTE;
 
-        $_dql = "SELECT nt, (nt.note * mt.coefficient) AS ponderee
+        $_dql = "SELECT nt AS note, (nt.note * mt.coefficient) AS ponderee
                  FROM $_note nt
                  JOIN nt.etudiant et
                  JOIN nt.matiere mt
@@ -46,6 +46,19 @@ class ServiceMetierEtudiant
         $_query->setParameter('etudiant', $_etudiant->getId());
 
         return $_query->getResult();
+
+        /*$_data = [];
+        foreach ($_results as $result) {
+            $_data['nom'][]         = $result['note']->getEtudiant()->getNom();
+            $_data['niveau'][]      = $result['note']->getEtudiant()->getNiveau();
+            $_data['annee'][]       = $result['note']->getEtudiant()->getAnnee();
+            $_data['libelle'][]     = $result['note']->getMatiere()->getLibelle();
+            $_data['coefficient'][] = $result['note']->getMatiere()->getCoefficient();
+            $_data['ponderee'][]    = $result['ponderee'];
+        }
+        $_data['average'][] = $this->getAverageByStudent($_etudiant);
+
+        return $_data;*/
     }
 
     /**
@@ -58,7 +71,7 @@ class ServiceMetierEtudiant
     {
         $_note = EntityName::NOTE;
 
-        $_dql = "SELECT AVG(nt.note)
+        $_dql = "SELECT AVG(nt.note) AS moyenne
                  FROM $_note nt
                  JOIN nt.etudiant et
                  WHERE et.id = :etudiant";
@@ -66,6 +79,6 @@ class ServiceMetierEtudiant
         $_query = $this->_entity_manager->createQuery($_dql);
         $_query->setParameter('etudiant', $_etudiant->getId());
 
-        return $_query->getOneOrNullResult();
+        return $_query->getOneOrNullResult()['moyenne'];
     }
 }

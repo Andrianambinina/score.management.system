@@ -168,15 +168,23 @@ class EtudiantController extends AbstractController
             ->getForm();
     }
 
+    /**
+     * Show student info
+     * @param Etudiant $_etudiant
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function showAction(Etudiant $_etudiant)
     {
         // Get manager
         $_etudiant_manager = $this->get(ServiceName::SRV_METIER_ETUDIANT);
 
-        $_info_etudiant = $_etudiant_manager->getInfoEtudiant($_etudiant);
-
-        $_average = $_etudiant_manager->getAverageByStudent($_etudiant);
-
-        dd($_info_etudiant);
+        $_etudiant_infos = $_etudiant_manager->getInfoEtudiant($_etudiant);
+        $_average       = $_etudiant_manager->getAverageByStudent($_etudiant);
+//dd($_etudiant_infos);
+        return $this->render('AdminBundle:Etudiant:show.html.twig', [
+            'etudiants' => $_etudiant_infos,
+            'average'   => $_average
+        ]);
     }
 }

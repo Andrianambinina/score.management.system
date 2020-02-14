@@ -1,0 +1,63 @@
+{% extends "backoffice/base_admin.html.twig" %}
+
+{% block title %}{{ parent() }} Liste des étudiants {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Etudiant détail</h5>
+                    <p class="card-text"><b>Nom</b> :Zo</p>
+                    <p class="card-text"><b>Niveau</b> :Master</p>
+                    <p class="card-text"><b>Année</b> :2018</p>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Désignation</th>
+                            <th>Coéfficient</th>
+                            <th>Note</th>
+                            <th>Note pondérée</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Mathématique</td>
+                            <td>4</td>
+                            <td>17</td>
+                            <td>68</td>
+                        </tr>
+                        <tr>
+                            <td>Physique</td>
+                            <td>4</td>
+                            <td>12</td>
+                            <td>48</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>Moyenne: 10</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>Observation: Admis</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#{% for etudiant in etudiants %}#}
+        {#<p>{{ etudiant.note.etudiant.nom }}</p>#}
+        {#<p>{{ etudiant.note.etudiant.niveau }}</p>#}
+        {#<p>{{ etudiant.note.etudiant.annee|date('Y') }}</p>#}
+        {#<p>{{ etudiant.note.matiere.libelle }}</p>#}
+        {#<p>{{ etudiant.note.matiere.coefficient }}</p>#}
+        {#<p>{{ etudiant.note.note }}</p>#}
+        {#<p>{{ etudiant.ponderee }}</p>#}
+        {#<p>{{ average }}</p>#}
+    {#{% endfor %}#}
+{% endblock %}
