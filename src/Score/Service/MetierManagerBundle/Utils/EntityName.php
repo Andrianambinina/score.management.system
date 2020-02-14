@@ -11,4 +11,5 @@ class EntityName
     const USER     = 'UserBundle:User';
     const ETUDIANT = 'MetierManagerBundle:Etudiant';
     const MATIERE  = 'MetierManagerBundle:Matiere';
+    const NOTE     = 'MetierManagerBundle:Note';
 }

@@ -1,0 +1,24 @@
+note_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Note:index" }
+    methods:  GET
+
+note_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Note:new" }
+    methods:  [GET, POST]
+
+note_edit:
+    path:     /edit/{id}
+    defaults: { _controller: "AdminBundle:Note:edit" }
+    methods:  [GET, POST]
+
+note_update:
+    path:     /update/{id}
+    defaults: { _controller: "AdminBundle:Note:update" }
+    methods:  [POST, PUT]
+
+note_delete:
+    path:     /delete/{id}
+    defaults: { _controller: "AdminBundle:Note:delete" }
+    methods:  [GET, DELETE]

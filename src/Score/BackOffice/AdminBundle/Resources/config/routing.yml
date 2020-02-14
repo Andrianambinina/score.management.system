@@ -9,3 +9,7 @@ sc_etudiant:
 sc_matiere:
     resource: "@AdminBundle/Resources/config/routing/matiere.yml"
     prefix:   /matiere
+
+sc_note:
+    resource: "@AdminBundle/Resources/config/routing/note.yml"
+    prefix:   /note
