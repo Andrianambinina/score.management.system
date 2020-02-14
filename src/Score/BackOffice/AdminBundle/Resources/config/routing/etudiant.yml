@@ -3,6 +3,11 @@ etudiant_index:
     defaults: { _controller: "AdminBundle:Etudiant:index" }
     methods:  GET
 
+etudiant_show:
+    path:     /show/{id}
+    defaults: { _controller: "AdminBundle:Etudiant:show" }
+    methods:  GET
+
 etudiant_new:
     path:     /new
     defaults: { _controller: "AdminBundle:Etudiant:new" }

@@ -46,9 +46,12 @@
                                             <td>{{ etudiant.niveau }}</td>
                                             <td>{{ etudiant.annee|date('Y') }}</td>
                                             <td>
+                                                <a href="{{ path('etudiant_show', { 'id': etudiant.id }) }}"
+                                                   class="mr-2"><i class="fa fa-eye"></i></a>
                                                 <a href="{{ path('etudiant_edit', { 'id': etudiant.id }) }}"
                                                    class="mr-2"><i class="fa fa-edit"></i></a>
-                                                <a href="{{ path('etudiant_delete', { 'id': etudiant.id }) }}" class="mr-2 kl-remove-elt"><i class="fa fa-trash"></i></a>
+                                                <a href="{{ path('etudiant_delete', { 'id': etudiant.id }) }}"
+                                                   class="mr-2 kl-remove-elt"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     {% endfor %}

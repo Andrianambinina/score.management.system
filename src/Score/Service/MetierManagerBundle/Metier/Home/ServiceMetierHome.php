@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Class ServiceMetierHome
+ * Class ServiceMetierEtudiant
  * @package App\Score\Service\MetierManagerBundle\Metier\Home
  */
 class ServiceMetierHome
@@ -15,7 +15,7 @@ class ServiceMetierHome
     private $_container;
 
     /**
-     * ServiceMetierHome constructor.
+     * ServiceMetierEtudiant constructor.
      * @param EntityManager $_entity_manager
      * @param Container $_container
      */

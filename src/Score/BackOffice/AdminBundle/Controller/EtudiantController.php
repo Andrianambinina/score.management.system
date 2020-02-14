@@ -167,4 +167,16 @@ class EtudiantController extends AbstractController
             ->setMethod('DELETE')
             ->getForm();
     }
+
+    public function showAction(Etudiant $_etudiant)
+    {
+        // Get manager
+        $_etudiant_manager = $this->get(ServiceName::SRV_METIER_ETUDIANT);
+
+        $_info_etudiant = $_etudiant_manager->getInfoEtudiant($_etudiant);
+
+        $_average = $_etudiant_manager->getAverageByStudent($_etudiant);
+
+        dd($_info_etudiant);
+    }
 }
