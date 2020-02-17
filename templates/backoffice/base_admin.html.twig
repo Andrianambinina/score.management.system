@@ -7,7 +7,7 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 4.4.1 -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('backoffice/css/bootstrap.min.css') }}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('plugins/admin-lte/bower_components/font-awesome/css/font-awesome.min.css') }}">
         <!-- Ionicons -->
@@ -44,7 +44,7 @@
 
         <!-- Google Font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+        <link rel="stylesheet" href="{{ asset('backoffice/css/tempusdominus-bootstrap-4.min.css') }}">
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -110,8 +110,8 @@
             <script src="{{ asset('plugins/admin-lte/dist/js/pages/dashboard.js') }}"></script>
             <!-- AdminLTE for demo purposes -->
             <script src="{{ asset('plugins/admin-lte/dist/js/demo.js') }}"></script>
-            <script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+            <script src="{{ asset('backoffice/js/jquery.dataTables.min.js') }}"></script>
+            <script src="{{ asset('backoffice/js/tempusdominus-bootstrap-4.min.js') }}"></script>
             <script src="{{ asset('backoffice/js/general.js') }}"></script>
         {% endblock %}
     </body>
