@@ -8,9 +8,9 @@
             <div class="box">
                 <div class="box-body">
                     <h5 class="card-title">Bulletin</h5>
-                    <p class="card-text"><b>Nom</b> : {{ etudiants[0].nom }}</p>
-                    <p class="card-text"><b>Niveau</b> : {{ etudiants[0].niveau }}</p>
-                    <p class="card-text"><b>Année</b> : {{ etudiants[0].annee|date('Y') }}</p>
+                    <p class="card-text"><b>Nom</b> : {{ etudiant.nom }}</p>
+                    <p class="card-text"><b>Niveau</b> : {{ etudiant.niveau }}</p>
+                    <p class="card-text"><b>Année</b> : {{ etudiant.annee|date('Y') }}</p>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -21,13 +21,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for etudiant in etudiants %}
+                            {% for note in notes %}
                                 <tr>
-                                    {#{{ dump(etudiant) }}#}
-                                    <td>{{ etudiant.libelle }}</td>
-                                    <td>{{ etudiant.coefficient }}</td>
-                                    <td>{{ etudiant.note }}</td>
-                                    <td>{{ etudiant.ponderee }}</td>
+                                    <td>{{ note.libelle }}</td>
+                                    <td>{{ note.coefficient }}</td>
+                                    <td>{{ note.note }}</td>
+                                    <td>{{ note.ponderee }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

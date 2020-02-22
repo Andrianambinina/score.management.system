@@ -179,12 +179,13 @@ class EtudiantController extends AbstractController
         // Get manager
         $_etudiant_manager = $this->get(ServiceName::SRV_METIER_ETUDIANT);
 
-        $_etudiant_infos = $_etudiant_manager->getInfoEtudiant($_etudiant);
-        $_average       = $_etudiant_manager->getAverageByStudent($_etudiant);
-//dd($_etudiant_infos);
+        $_notes   = $_etudiant_manager->getInfoEtudiant($_etudiant);
+        $_average = $_etudiant_manager->getAverageByStudent($_etudiant);
+
         return $this->render('AdminBundle:Etudiant:show.html.twig', [
-            'etudiants' => $_etudiant_infos,
-            'average'   => $_average
+            'etudiant' => $_etudiant,
+            'notes'    => $_notes,
+            'average'  => $_average
         ]);
     }
 }
