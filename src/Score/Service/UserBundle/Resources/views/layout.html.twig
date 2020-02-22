@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{% block title %} Accès Personnel {% endblock %}</title>
+        <title>{% block title %} Score | {% endblock %}</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
@@ -19,28 +19,33 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
-        <div>
+    <body class="hold-transition login-page">
+        {#<div>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
                 <a href="{{ path('fos_user_security_logout') }}">
                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                 </a>
             {% endif %}
-        </div>
-        <div class="login-box-body">
-            {% for type, messages in app.session.flashbag.all() %}
-                {% for message in messages %}
-                    <div class="flash-{{ type }}">
-                        {{ message }}
-                    </div>
+        </div>#}
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="{{ path('eternaly_login') }}"><b>Admin</b></a>
+            </div>
+            <!-- /.login-logo -->
+            <div class="login-box-body">
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="flash-{{ type }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
 
-            <div class="container">
                 {% block fos_user_content %}
                 {% endblock fos_user_content %}
             </div>
+            <!-- /.login-box-body -->
         </div>
     </body>
 </html>

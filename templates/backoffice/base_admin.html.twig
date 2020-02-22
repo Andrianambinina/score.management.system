@@ -7,7 +7,7 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 4.4.1 -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('plugins/admin-lte/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('plugins/admin-lte/bower_components/font-awesome/css/font-awesome.min.css') }}">
         <!-- Ionicons -->
@@ -31,7 +31,7 @@
         <!-- Custom admin -->
         <link href="{{ asset('backoffice/css/custom-admin.css') }}" rel="stylesheet" type="text/css" />
 
-        <link rel="stylesheet" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="{{ asset('plugins/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -110,7 +110,7 @@
             <script src="{{ asset('plugins/admin-lte/dist/js/pages/dashboard.js') }}"></script>
             <!-- AdminLTE for demo purposes -->
             <script src="{{ asset('plugins/admin-lte/dist/js/demo.js') }}"></script>
-            <script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+            <script src="{{ asset('plugins/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
             <script src="{{ asset('backoffice/js/general.js') }}"></script>
         {% endblock %}

@@ -1,7 +1,11 @@
-eternaly_user:
-    resource: '@UserBundle/Resources/config/routing/user.yml'
-    prefix:   /admin/user
-
 eternaly_login:
     path:     /login
     defaults: { _controller: UserBundle:Security:login }
+
+eternaly_home:
+    path:     /
+    defaults: { _controller: UserBundle:Security:login }
+
+eternaly_user:
+    resource: '@UserBundle/Resources/config/routing/user.yml'
+    prefix:   /admin/user
