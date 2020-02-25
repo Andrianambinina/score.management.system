@@ -44,9 +44,14 @@
                                                 <td>{{ matiere.coefficient }}</td>
                                                 <td>
                                                     <a href="{{ path('matiere_edit', { 'id': matiere.id }) }}"
-                                                       class="mr-2"><i class="fa fa-edit"></i></a>
+                                                       data-toggle="tooltip" data-placement="top" title="Modifier">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
                                                     <a href="{{ path('matiere_delete', { 'id': matiere.id }) }}"
-                                                       class="mr-2 kl-remove-elt"><i class="fa fa-trash"></i></a>
+                                                       data-toggle="tooltip" data-placement="top" title="Supprimer"
+                                                       class="kl-remove-elt">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
