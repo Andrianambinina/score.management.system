@@ -2,65 +2,65 @@
 
 {% block title %}{{ parent() }} Liste des notes{% endblock %}
 
+{% set menu_note = true %}
+
 {% block body %}
-    {% for flashMessage in app.session.flashbag.get('success') %}
-        <div class="callout callout-success">
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
-    {% for flashMessage in app.session.flashbag.get('error') %}
-        <div class="callout callout-danger">
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
+    <section class="content-header">
+        <h1>Liste des notes</h1>
+    </section>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="w-100 d-flex flex-column flex-md-row justify-content-between">
-                <div class="d-inline-flex mb-4 align-items-center justify-content-between justify-content-md-start">
-                    <h3 class="mr-3">Liste des notes</h3>
-                    <a href="{{ path('note_new') }}" class="btn btn-primary">Ajout note</a>
-                </div>
+    <section class="content">
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="callout callout-success">
+                {{ flashMessage }}
             </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="callout callout-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
 
-            <div class="box">
-                <div class="box-body">
-                    <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table id="id-list-score" class="table dataTable">
-                                    <thead>
-                                    <tr role="row">
-                                        <th>Etudiant</th>
-                                        <th>Matière</th>
-                                        <th>Note</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for note in notes %}
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="{{ path('note_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajout note</a><br><br>
+                <div class="box">
+                    <div class="box-body"><div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="id-list-score" class="table table-bordered dataTable">
+                                        <thead>
                                         <tr role="row">
-                                            <td>{{ note.etudiant ? note.etudiant.nom }}</td>
-                                            <td>{{ note.matiere ? note.matiere.libelle }}</td>
-                                            <td>{{ note.note }}</td>
-                                            <td>
-                                                <a href="{{ path('note_edit', { 'id': note.id }) }}"
-                                                   class="mr-2"><i class="fa fa-edit"></i></a>
-                                                <a href="{{ path('note_delete', { 'id': note.id }) }}"
-                                                   class="mr-2 kl-remove-elt"><i class="fa fa-trash"></i></a>
-                                            </td>
+                                            <th>Etudiant</th>
+                                            <th>Matière</th>
+                                            <th>Note</th>
+                                            <th>Action</th>
                                         </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        {% for note in notes %}
+                                            <tr role="row">
+                                                <td>{{ note.etudiant ? note.etudiant.nom }}</td>
+                                                <td>{{ note.matiere ? note.matiere.libelle }}</td>
+                                                <td>{{ note.note }}</td>
+                                                <td>
+                                                    <a href="{{ path('note_edit', { 'id': note.id }) }}"
+                                                       class="mr-2"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{ path('note_delete', { 'id': note.id }) }}"
+                                                       class="mr-2 kl-remove-elt"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /.box -->
         </div>
-    </div>
+    </section>
 {% endblock %}
 
 {% block javascripts %}
@@ -73,8 +73,8 @@
                 "bProcessing": true,
                 "bFilter": true,
                 // "bPaginate": false,
-                "bInfo": false,
-                "lengthChange": false,
+                "bInfo": true,
+                "lengthChange": true,
                 "oLanguage": {
                     "sProcessing": '<i class="fa fa-spinner fa-pulse fa-fw"></i>',
                     "sSearch": "Filtrer: ",

@@ -1,29 +1,35 @@
 {% extends "backoffice/base_admin.html.twig" %}
 
 {% block body %}
-    <div class="box">
-        {{ form_start(form) }}
-            <div class="box-header">
-                <h3 class="box-title">Créer un utilisateur</h3>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-8">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Ajout utilisateur</h3>
+                    </div>
+                    {{ form_start(form) }}
+                    <div class="box-body">
+                        {{ form_row(form.lastname) }}
+                        {{ form_row(form.firstname) }}
+                        {{ form_row(form.address) }}
+                        {{ form_row(form.phone) }}
+                        {{ form_row(form.email) }}
+                        <hr>
+                        {{ form_row(form.username) }}
+                        {{ form_row(form.plainPassword.first) }}
+                        {{ form_row(form.plainPassword.second) }}
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary" name="new_user">Envoyer</button>
+                            <a href="{{ path('user_index') }}" class="btn btn-default" >
+                                Retour à la liste
+                            </a>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
             </div>
-            <div class="box-body">
-                {{ form_row(form.lastname) }}
-                {{ form_row(form.firstname) }}
-                {{ form_row(form.address) }}
-                {{ form_row(form.phone) }}
-                {{ form_row(form.email) }}
-                <hr>
-                {{ form_row(form.username) }}
-                {{ form_row(form.plainPassword.first) }}
-                {{ form_row(form.plainPassword.second) }}
-            </div>
-            <div class="box-footer">
-                <input type="submit" class="btn btn-primary" value="Enregistrer" name="new_user"/>
-                <a href="{{ path('user_index') }}"
-                   class="btn btn-default pull-left btn-mini-rectif" >
-                    Retour à la liste
-                </a>
-            </div>
-        {{ form_end(form) }}
-    </div>
+        </div>
+    </section>
 {% endblock %}

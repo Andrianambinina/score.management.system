@@ -2,13 +2,15 @@
 
 namespace App\Score\Service\MetierManagerBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class EtudiantType extends AbstractType
 {
@@ -42,16 +44,25 @@ class EtudiantType extends AbstractType
                 'required' => false,
                 'placeholder'  => "Veuillez sélectionner votre sexe",
             ))
-            ->add('niveau', TextType::class, array(
-                'label'    => "Niveau",
-                'required' => false,
-                'attr'     => ['placeholder' => "Niveau de l'étudiant"]
-            ))
             ->add('annee', DateTimeType::class, array(
                 'label'    => "Année scolaire",
                 'format'   => 'yyyy',
                 'widget'   => 'single_text',
                 'required' => false
+            ))
+            ->add('niveau', EntityType::class, array(
+                'label'         => "Niveau",
+                'class'         => "App\Score\Service\MetierManagerBundle\Entity\Niveau",
+                'query_builder' => function (EntityRepository $_er) {
+                    return $_er
+                        ->createQueryBuilder('nv')
+                        ->orderBy('nv.libelle', 'ASC');
+                },
+                'choice_label'  => 'libelle',
+                'multiple'      => false,
+                'expanded'      => false,
+                'required'      => false,
+                'placeholder'   => "Niveau de l'étudiant"
             ))
         ;
     }

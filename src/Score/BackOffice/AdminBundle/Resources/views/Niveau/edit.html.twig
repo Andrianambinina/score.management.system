@@ -1,8 +1,8 @@
 {% extends "backoffice/base_admin.html.twig" %}
 
-{% block title %}{{ parent() }} Modification note{% endblock %}
+{% block title %}{{ parent() }} Modification niveau{% endblock %}
 
-{% set menu_note = true %}
+{% set menu_niveau = true %}
 
 {% block body %}
     <section class="content">
@@ -11,17 +11,15 @@
 
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Modification note</h3>
+                        <h3 class="box-title">Modification niveau</h3>
                     </div>
                     {{ form_start(edit_form) }}
                     <div class="box-body">
-                        {{ form_row(edit_form.etudiant) }}
-                        {{ form_row(edit_form.matiere) }}
-                        {{ form_row(edit_form.note) }}
+                        {{ form_row(edit_form.libelle) }}
 
                         <div class="box-footer">
                             <input type="submit" class="btn btn-primary" name="update_matiere" value="Envoyer"/>
-                            <a href="{{ path('note_index') }}" class="btn btn-default">
+                            <a href="{{ path('niveau_index') }}" class="btn btn-default">
                                 Retour à la liste
                             </a>
                         </div>

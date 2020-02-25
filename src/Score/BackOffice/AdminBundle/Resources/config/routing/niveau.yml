@@ -1,0 +1,24 @@
+niveau_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Niveau:index" }
+    methods:  GET
+
+niveau_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Niveau:new" }
+    methods:  [GET, POST]
+
+niveau_edit:
+    path:     /edit/{id}
+    defaults: { _controller: "AdminBundle:Niveau:edit" }
+    methods:  [GET, POST]
+
+niveau_update:
+    path:     /update/{id}
+    defaults: { _controller: "AdminBundle:Niveau:update" }
+    methods:  [POST, PUT]
+
+niveau_delete:
+    path:     /delete/{id}
+    defaults: { _controller: "AdminBundle:Niveau:delete" }
+    methods:  [GET, DELETE]

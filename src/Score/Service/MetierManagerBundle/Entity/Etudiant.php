@@ -50,18 +50,21 @@ class Etudiant
     private $sexe;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="niveau", type="string", length=100, nullable=true)
-     */
-    private $niveau;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="annee", type="date", nullable=true)
      */
     private $annee;
+
+    /**
+     * @var Niveau
+     *
+     * @ORM\ManyToOne(targetEntity="App\Score\Service\MetierManagerBundle\Entity\Niveau")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="niveau_id", referencedColumnName="id", onDelete="CASCADE")
+     * })
+     */
+    private $niveau;
 
 
     /**
@@ -137,22 +140,6 @@ class Etudiant
     }
 
     /**
-     * @return string
-     */
-    public function getNiveau()
-    {
-        return $this->niveau;
-    }
-
-    /**
-     * @param string $niveau
-     */
-    public function setNiveau($niveau)
-    {
-        $this->niveau = $niveau;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getAnnee()
@@ -166,5 +153,21 @@ class Etudiant
     public function setAnnee($annee)
     {
         $this->annee = $annee;
+    }
+
+    /**
+     * @return Niveau
+     */
+    public function getNiveau()
+    {
+        return $this->niveau;
+    }
+
+    /**
+     * @param Niveau $niveau
+     */
+    public function setNiveau($niveau)
+    {
+        $this->niveau = $niveau;
     }
 }

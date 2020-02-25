@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Score\Service\UserBundle\Controller;
+
 use App\Score\Service\MetierManagerBundle\Utils\EntityName;
 use App\Score\Service\UserBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
-     * Afficher tous les utilisateurs
+     * Display all users
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
@@ -30,6 +32,11 @@ class UserController extends Controller
         ));
     }
 
+    /**
+     * Create new user
+     * @param Request $_request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newAction(Request $_request)
     {
         // Recuperer manager
@@ -52,6 +59,11 @@ class UserController extends Controller
         ));
     }
 
+    /**
+     * Create create form
+     * @param User $_user
+     * @return \Symfony\Component\Form\FormInterface
+     */
     public function createCreateForm(User $_user)
     {
         $_form = $this->createForm(UserType::class, $_user, array(

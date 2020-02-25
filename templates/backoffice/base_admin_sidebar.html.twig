@@ -1,42 +1,46 @@
-<!-- Left side column. contains the logo and sidebar -->
+{% set active = 'active' %}
+
 <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-        <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="active">
+            <li>
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li class="treeview">
+            <li class="treeview {% if menu_user is defined %}{{ active }}{% endif %}">
                 <a href="#">
-                    <i class="fa fa-users"></i>
-                    <span>Administrateur</span>
+                    <i class="fa fa-users"></i><span>Administrateur</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ path('user_index') }}"><i class="fa fa fa-user"></i> Utilisateurs</a></li>
+                    <li class="{% if menu_user is defined %}{{ active }}{% endif %}">
+                        <a href="{{ path('user_index') }}"><i class="fa fa fa-user"></i> Utilisateurs</a>
+                    </li>
                 </ul>
             </li>
-            <li>
+            <li class="{% if menu_etudiant is defined %}{{ active }}{% endif %}">
                 <a href="{{ path('etudiant_index') }}">
                     <i class="fa fa-graduation-cap"></i> <span>Etudiant</span>
                 </a>
             </li>
-            <li>
+            <li class="{% if menu_matiere is defined %}{{ active }}{% endif %}">
                 <a href="{{ path('matiere_index') }}">
                     <i class="fa fa-book"></i> <span>Matière</span>
                 </a>
             </li>
-            <li>
+            <li class="{% if menu_note is defined %}{{ active }}{% endif %}">
                 <a href="{{ path('note_index') }}">
                     <i class="fa fa-file-text-o"></i> <span>Note</span>
                 </a>
             </li>
+            <li class="{% if menu_niveau is defined %}{{ active }}{% endif %}">
+                <a href="{{ path('niveau_index') }}">
+                    <i class="fa fa-share"></i> <span>Niveau</span>
+                </a>
+            </li>
         </ul>
     </section>
-    <!-- /.sidebar -->
 </aside>

@@ -28,37 +28,34 @@ class ServiceMetierEtudiant
     }
 
     /**
-     * Get info student
+     * Get score by student
      * @param Etudiant $_etudiant
      * @return mixed
      */
-    public function getInfoEtudiant(Etudiant $_etudiant)
+    public function getScoreByStudent(Etudiant $_etudiant)
     {
         $_note = EntityName::NOTE;
 
-        $_dql = "SELECT et.nom, et.niveau, et.annee, mt.libelle, mt.coefficient, nt.note, (nt.note * mt.coefficient) AS ponderee
+        $_dql = "SELECT nt
                  FROM $_note nt
                  JOIN nt.etudiant et
-                 JOIN nt.matiere mt
                  WHERE et.id = :etudiant";
 
         $_query = $this->_entity_manager->createQuery($_dql);
         $_query->setParameter('etudiant', $_etudiant->getId());
 
-        return $_query->getResult();
-
-        /*$_data = [];
-        foreach ($_results as $result) {
-            $_data['nom'][]         = $result['note']->getEtudiant()->getNom();
-            $_data['niveau'][]      = $result['note']->getEtudiant()->getNiveau();
-            $_data['annee'][]       = $result['note']->getEtudiant()->getAnnee();
-            $_data['libelle'][]     = $result['note']->getMatiere()->getLibelle();
-            $_data['coefficient'][] = $result['note']->getMatiere()->getCoefficient();
-            $_data['ponderee'][]    = $result['ponderee'];
+        $_results = $_query->getResult();
+        $_data = [];
+        foreach ($_results as $_note) {
+            array_push($_data, [
+                'designation' => $_note->getMatiere()->getLibelle(),
+                'coefficient' => $_note->getMatiere()->getCoefficient(),
+                'note'        => $_note->getNote(),
+                'ponderee'    => ($_note->getMatiere()->getCoefficient() * $_note->getNote())
+            ]);
         }
-        $_data['average'][] = $this->getAverageByStudent($_etudiant);
 
-        return $_data;*/
+        return $_data;
     }
 
     /**

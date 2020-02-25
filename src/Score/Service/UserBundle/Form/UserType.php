@@ -21,41 +21,50 @@ class UserType extends AbstractType
         $builder
             ->add('lastname', TextType::class, array(
                 'label'    => "Nom",
-                'required' => true
+                'required' => true,
+                'attr'     => [
+                    'placeholder' => "Nom"
+                ]
             ))
-
             ->add('firstname', TextType::class, array(
                 'label'    => "Prénom",
-                'required' => true
+                'required' => true,
+                'attr'     => [
+                    'placeholder' => "Prénom"
+                ]
             ))
-
             ->add('address', TextType::class, array(
                 'label'    => "Adresse",
-                'required' => false
+                'required' => false,
+                'attr'     => [
+                    'placeholder' => "Adresse"
+                ]
             ))
-
             ->add('phone', TextType::class, array(
                 'label'    => "Téléphone",
-                'required' => false
+                'required' => false,
+                'attr'     => [
+                    'placeholder' => "Téléphone"
+                ]
             ))
-
             ->add('email', EmailType::class, array(
                 'label'    => "Adresse email",
-                'attr'     => array('pattern' => "[^@]+@[^@]+\.[a-zA-Z]{2,}"),
-                'required' => true
+                'required' => true,
+                'attr'     => [
+                    'pattern' => "[^@]+@[^@]+\.[a-zA-Z]{2,}",
+                    'placeholder' => "Email"
+                ]
             ))
-
-            ->add('plainPassword',RepeatedType::class, array(
+            ->add('plainPassword', RepeatedType::class, array(
                 'type'            => PasswordType::class,
-                'options'         => array('translation_domain' => 'FOSUserBundle'),
-                'first_options'   => array(
+                'options'         => ['translation_domain' => 'FOSUserBundle'],
+                'first_options'   => [
                     'label' => 'form.password',
                     'attr'  => array('minleght' => 6)
-                ),
-                'second_options'  => array('label' => 'form.password_confirmation'),
-                'invalid_message' => 'fos_user.password.mismatch',
-            ))
-        ;
+                ],
+                'second_options'  => ['label' => 'form.password_confirmation'],
+                'invalid_message' => 'fos_user.password.mismatch'
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

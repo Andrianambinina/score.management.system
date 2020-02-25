@@ -13,3 +13,7 @@ sc_matiere:
 sc_note:
     resource: "@AdminBundle/Resources/config/routing/note.yml"
     prefix:   /note
+
+sc_niveau:
+    resource: "@AdminBundle/Resources/config/routing/niveau.yml"
+    prefix:   /niveau
