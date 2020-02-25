@@ -13,6 +13,11 @@
                 <div class="box">
                     <div class="box-body">
                         <div class="box-body">
+                            <div class="pull-right">
+                                <a href="{{ path('etudiant_generer_pdf', {'id': etudiant.id}) }}">
+                                    <img src="{{ asset('img/pdf.png') }}" alt="" width="60px" height="60px">
+                                </a>
+                            </div>
                             <p><b>Nom</b> : {{ etudiant.nom }}</p>
                             <p><b>Niveau</b> : {{ etudiant.niveau ? etudiant.niveau.libelle }}</p>
                             <p><b>Année</b> : {{ etudiant.annee|date('Y') }}</p>

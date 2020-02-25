@@ -6,6 +6,7 @@ use App\Score\Service\MetierManagerBundle\Entity\Etudiant;
 use App\Score\Service\MetierManagerBundle\Form\EtudiantType;
 use App\Score\Service\MetierManagerBundle\Utils\EntityName;
 use App\Score\Service\MetierManagerBundle\Utils\ServiceName;
+use Dompdf\Dompdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -187,5 +188,34 @@ class EtudiantController extends AbstractController
             'notes'    => $_notes,
             'average'  => $_average
         ]);
+    }
+
+    /**
+     * Generer pdf document
+     * @param Etudiant $_etudiant
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function genererPdfAction(Etudiant $_etudiant)
+    {
+        // Get manager
+        $_etudiant_manager = $this->get(ServiceName::SRV_METIER_ETUDIANT);
+
+        $_notes   = $_etudiant_manager->getScoreByStudent($_etudiant);
+        $_average = $_etudiant_manager->getAverageByStudent($_etudiant);
+
+        $_template = $this->renderView('AdminBundle:Etudiant:template.html.twig', [
+            'etudiant' => $_etudiant,
+            'notes'    => $_notes,
+            'average'  => $_average
+        ]);
+
+        $_document = new Dompdf();
+        $_document->loadHtml($_template);
+        $_document->setPaper('A4', 'landscape');
+        $_document->render();
+        $_document->stream("Bulletin des notes", ['Attachment' => 0]);
+
+        return true;
     }
 }

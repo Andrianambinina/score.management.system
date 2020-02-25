@@ -1,0 +1,55 @@
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+
+<p><b>Nom</b> : {{ etudiant.nom }}</p>
+<p><b>Niveau</b> : {{ etudiant.niveau ? etudiant.niveau.libelle }}</p>
+<p><b>Année</b> : {{ etudiant.annee|date('Y') }}</p>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Désignation</th>
+        <th>Coéfficient</th>
+        <th>Note</th>
+        <th>Note pondérée</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for note in notes %}
+        <tr>
+            <td>{{ note.designation }}</td>
+            <td>{{ note.coefficient }}</td>
+            <td>{{ note.note }}</td>
+            <td>{{ note.ponderee }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="3"></td>
+        <td><b>Moyenne: {{ average|round(2, 'floor') }}</b></td>
+    </tr>
+    <tr>
+        <td colspan="3"></td>
+        <td>
+            <b>Observation:</b>
+            {% if average >= 10 %}
+                <span class="label label-success">Admis</span>
+            {% elseif average >= 7.5 %}
+                <span class="label label-warning">Redoublant</span>
+            {% else %}
+                <span class="label label-danger">Exclus</span>
+            {% endif %}
+        </td>
+    </tr>
+    </tfoot>
+</table>

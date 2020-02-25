@@ -27,3 +27,8 @@ etudiant_delete:
     path:     /delete/{id}
     defaults: { _controller: "AdminBundle:Etudiant:delete" }
     methods:  [GET, DELETE]
+
+etudiant_generer_pdf:
+    path:     /generer-pdf/{id}
+    defaults: { _controller: "AdminBundle:Etudiant:genererPdf" }
+    methods:  [GET, POST]
