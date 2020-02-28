@@ -7,6 +7,7 @@ use App\Score\Service\MetierManagerBundle\Form\EtudiantType;
 use App\Score\Service\MetierManagerBundle\Utils\EntityName;
 use App\Score\Service\MetierManagerBundle\Utils\ServiceName;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -201,6 +202,10 @@ class EtudiantController extends AbstractController
         // Get manager
         $_etudiant_manager = $this->get(ServiceName::SRV_METIER_ETUDIANT);
 
+        $_options = new Options();
+        $_options->set('isRemoteEnabled', TRUE);
+        $_document = new Dompdf($_options);
+
         $_notes   = $_etudiant_manager->getScoreByStudent($_etudiant);
         $_average = $_etudiant_manager->getAverageByStudent($_etudiant);
 
@@ -210,12 +215,11 @@ class EtudiantController extends AbstractController
             'average'  => $_average
         ]);
 
-        $_document = new Dompdf();
         $_document->loadHtml($_template);
         $_document->setPaper('A4', 'landscape');
         $_document->render();
         $_document->stream("Bulletin des notes", ['Attachment' => 0]);
 
-        return true;
+        exit(0);
     }
 }
