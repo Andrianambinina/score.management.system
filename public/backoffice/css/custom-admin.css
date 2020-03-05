@@ -2,3 +2,6 @@
     left: 25px;
     position: relative;
 }
+table.dataTable th, table.dataTable td {
+    vertical-align: middle !important;
+}

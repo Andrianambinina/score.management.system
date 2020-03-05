@@ -1,0 +1,16 @@
+liip_imagine :
+    resolvers :
+        default :
+            web_path : ~
+
+    filter_sets :
+        cache : ~
+
+        profile_identity :
+            quality : 100
+            filters :
+                upscale:
+                    min: [50, 50]
+                thumbnail :
+                    size : [50, 50]
+                    mode : outbound

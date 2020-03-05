@@ -32,6 +32,7 @@
                                     <table id="id-list-user" class="table table-bordered dataTable">
                                         <thead>
                                         <tr role="row">
+                                            <th>Photo</th>
                                             <th>Nom</th>
                                             <th>Emal</th>
                                             <th>Adresse</th>
@@ -42,6 +43,7 @@
                                         <tbody>
                                         {% for user in users %}
                                             <tr role="row">
+                                                <td><img src="{{ asset('img/profile.png')|imagine_filter('profile_identity') }}" alt=""></td>
                                                 <td>{{ user.firstname }}</td>
                                                 <td>{{ user.email }}</td>
                                                 <td>{{ user.address }}</td>

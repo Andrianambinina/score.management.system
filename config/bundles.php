@@ -19,4 +19,5 @@ return [
     App\Score\Service\MetierManagerBundle\MetierManagerBundle::class => ['all' => true],
     App\Score\Service\UserBundle\UserBundle::class => ['all' => true],
     FOS\UserBundle\FOSUserBundle::class => ['all' => true],
+    Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true]
 ];
