@@ -21,6 +21,6 @@ class FileExistsExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'app_file';
+        return 'twig';
     }
 }
