@@ -27,3 +27,8 @@ services:
         class: App\Score\Service\MetierManagerBundle\Metier\Etudiant\ServiceMetierEtudiant
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
         public: true
+
+    twig.extension.file.exists:
+        class: App\Score\Service\MetierManagerBundle\Twig\Extension\FileExistsExtension
+        tags:
+            - { name: twig.extension }

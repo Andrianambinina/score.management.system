@@ -43,7 +43,13 @@
                                         <tbody>
                                         {% for user in users %}
                                             <tr role="row">
-                                                <td><img src="{{ asset('img/profile.png')|imagine_filter('profile_identity') }}" alt=""></td>
+                                                <td>
+                                                    {% set photo_profil = user.photo %}
+                                                    {% if photo_profil is null or not file_exists(web_path ~ photo_profil) %}
+                                                        {% set photo_profil = asset('img/profile.png') %}
+                                                    {% endif %}
+                                                    <img src="{{ photo_profil|imagine_filter('profile_identity') }}" alt="">
+                                                </td>
                                                 <td>{{ user.firstname }}</td>
                                                 <td>{{ user.email }}</td>
                                                 <td>{{ user.address }}</td>
