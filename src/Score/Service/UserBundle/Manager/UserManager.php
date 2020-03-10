@@ -70,6 +70,28 @@ class UserManager
     }
 
     /**
+     * @param $_user
+     * @param $_form
+     * @return bool
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function updateUser($_user, $_form)
+    {
+        $_image = $_form['photo']->getData();
+        if ($_image) {
+            $this->deleteOnlyImageById($_user->getId());
+            $this->upload($_user, $_image);
+        }
+
+        // Update password
+        $_fos_user_manager = $this->_container->get('fos_user.user_manager');
+        $_fos_user_manager->updatePassword($_user);
+
+        return $this->saveUser($_user, 'update');
+    }
+
+    /**
      * Save user
      * @param $_user
      * @param $_action
@@ -113,6 +135,21 @@ class UserManager
             $_user->setPhoto($_uri_file);
         } catch (FileException $_e) {
             throw new NotFoundHttpException("Error while uploading file");
+        }
+    }
+
+    /**
+     * Delete only image by Id
+     * @param $_id
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function deleteOnlyImageById($_id)
+    {
+        $_user = $this->_entity_manager->getRepository('UserBundle:User')->find($_id);
+        if ($_user) {
+            $_path = $this->_web_root . $_user->getPhoto();
+
+            unlink($_path);
         }
     }
 }

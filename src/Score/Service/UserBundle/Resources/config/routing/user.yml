@@ -1,9 +1,19 @@
 user_index:
     path:     /
-    defaults: { _controller: UserBundle:User:index }
+    defaults: { _controller: "UserBundle:User:index" }
     methods:  GET
 
 user_new:
     path:     /new
-    defaults: { _controller: UserBundle:User:new }
+    defaults: { _controller: "UserBundle:User:new" }
     methods:  [GET, POST]
+
+user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UserBundle:User:edit" }
+    methods:  [GET, POST]
+
+user_update:
+    path:     /{id}/update
+    defaults: { _controller: "UserBundle:User:update" }
+    methods:  [POST, PUT]

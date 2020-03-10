@@ -1,0 +1,47 @@
+{% extends "backoffice/base_admin.html.twig" %}
+
+{% block body %}
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-8">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Modification utilisateur</h3>
+                    </div>
+                    {{ form_start(edit_form) }}
+                    <div class="box-body">
+                        {{ form_row(edit_form.lastname) }}
+                        {{ form_row(edit_form.firstname) }}
+                        {{ form_row(edit_form.address) }}
+                        {{ form_row(edit_form.phone) }}
+                        {{ form_row(edit_form.email) }}
+                        {{ form_row(edit_form.photo) }}
+                        <hr>
+                        {{ form_row(edit_form.username) }}
+                        {{ form_row(edit_form.plainPassword.first) }}
+                        {{ form_row(edit_form.plainPassword.second) }}
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary" name="new_user">Envoyer</button>
+                            <a href="{{ path('user_index') }}" class="btn btn-default" >
+                                Retour à la liste
+                            </a>
+                        </div>
+                    </div>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function () {
+            $('#sc_userbundle_user_plainPassword_first, #sc_userbundle_user_plainPassword_second').removeAttr('required');
+        });
+    </script>
+{% endblock %}
+

@@ -58,6 +58,7 @@ class UserType extends AbstractType
             ))
             ->add('photo', FileType::class, array(
                 'label'    => "Photo de profil",
+                'mapped'   => false,
                 'required' => false
             ))
             ->add('plainPassword', RepeatedType::class, array(
@@ -89,6 +90,6 @@ class UserType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'prs_userbundle_user';
+        return 'sc_userbundle_user';
     }
 }
