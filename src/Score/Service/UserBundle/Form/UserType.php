@@ -4,6 +4,7 @@ namespace App\Score\Service\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -54,6 +55,10 @@ class UserType extends AbstractType
                     'pattern' => "[^@]+@[^@]+\.[a-zA-Z]{2,}",
                     'placeholder' => "Email"
                 ]
+            ))
+            ->add('photo', FileType::class, array(
+                'label'    => "Photo de profil",
+                'required' => false
             ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type'            => PasswordType::class,

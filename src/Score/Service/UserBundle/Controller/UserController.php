@@ -7,6 +7,7 @@ use App\Score\Service\UserBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Score\Service\MetierManagerBundle\Utils\ServiceName;
 use App\Score\Service\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -36,6 +37,8 @@ class UserController extends Controller
      * Create new user
      * @param Request $_request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function newAction(Request $_request)
     {
@@ -47,7 +50,7 @@ class UserController extends Controller
         $_form->handleRequest($_request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-            $_user_manager->addUser($_user, 'new');
+            $_user_manager->addUser($_user, $_form);
 
             //flash message
             return $this->redirectToRoute('user_index');
