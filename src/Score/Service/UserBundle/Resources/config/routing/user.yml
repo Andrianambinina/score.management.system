@@ -17,3 +17,8 @@ user_update:
     path:     /{id}/update
     defaults: { _controller: "UserBundle:User:update" }
     methods:  [POST, PUT]
+
+user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UserBundle:User:delete" }
+    methods:  [GET, DELETE]

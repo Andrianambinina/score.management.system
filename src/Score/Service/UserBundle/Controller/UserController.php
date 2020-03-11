@@ -139,4 +139,41 @@ class UserController extends Controller
             'edit_form' => $_form->createView(),
         ));
     }
+
+    /**
+     * Create delete form
+     * @param User $_user
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function createDeleteForm(User $_user)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('user_delete', ['id' => $_user->getId()]))
+            ->setMethod('DELETE')
+            ->getForm();
+    }
+
+    /**
+     * Delete user
+     * @param User $_user
+     * @param Request $_request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(User $_user, Request $_request)
+    {
+        // Get manager
+        $_utils_manager = $this->get(ServiceName::SRV_METIER_UTILS);
+
+        $_form = $this->createDeleteForm($_user);
+        $_form->handleRequest($_request);
+
+        if ($_request->isMethod('GET') || ($_form->isSubmitted() && $_form->isValid())) {
+        	$_utils_manager->deleteEntity($_user);
+
+            $_flash_message = $this->get('translator')->trans('Suppression effectuée avec succès');
+            $_utils_manager->setFlash('success', $_flash_message);
+        }
+
+        return $this->redirect($this->generateUrl('user_index'));
+    }
 }
