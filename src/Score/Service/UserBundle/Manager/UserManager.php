@@ -147,9 +147,9 @@ class UserManager
     {
         $_user = $this->_entity_manager->getRepository('UserBundle:User')->find($_id);
         if ($_user) {
-            $_path = $this->_web_root . $_user->getPhoto();
+            $_path = $this->_web_root.$_user->getPhoto();
 
-            unlink($_path);
+            if (is_file($_path)) unlink($_path);
         }
     }
 }
