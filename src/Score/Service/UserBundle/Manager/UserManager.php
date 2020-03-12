@@ -2,6 +2,7 @@
 
 namespace App\Score\Service\UserBundle\Manager;
 
+use App\Score\Service\MetierManagerBundle\Utils\EntityName;
 use App\Score\Service\MetierManagerBundle\Utils\PathName;
 use App\Score\Service\MetierManagerBundle\Utils\ServiceName;
 use App\Score\Service\UserBundle\Entity\User;
@@ -41,15 +42,6 @@ class UserManager
     protected function getRepository()
     {
         return $this->_entity_manager->getRepository(User::class);
-    }
-
-    /**
-     * Recuperer tous les utilisateurs
-     * @return array
-     */
-    public function getAllUser()
-    {
-        return $this->getRepository()->findBy(array(), array('id' => 'DESC'));
     }
 
     /**
