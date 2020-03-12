@@ -14,7 +14,6 @@ class DashboardController extends Controller
     /**
      * Display dashboard
      * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function indexAction()
     {
