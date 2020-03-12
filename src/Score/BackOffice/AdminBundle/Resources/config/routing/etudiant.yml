@@ -3,6 +3,11 @@ etudiant_index:
     defaults: { _controller: "AdminBundle:Etudiant:index" }
     methods:  GET
 
+etudiant_list_ajax:
+    path:     /list-ajax
+    defaults: { _controller: "AdminBundle:Etudiant:listAjax" }
+    methods:  POST
+
 etudiant_show:
     path:     /show/{id}
     defaults: { _controller: "AdminBundle:Etudiant:show" }

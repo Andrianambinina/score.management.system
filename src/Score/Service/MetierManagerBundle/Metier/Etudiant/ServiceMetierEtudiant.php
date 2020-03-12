@@ -78,4 +78,50 @@ class ServiceMetierEtudiant
 
         return $_query->getOneOrNullResult()['moyenne'];
     }
+
+    /**
+     * @param $_start
+     * @param $_length
+     * @param $_search
+     * @param $_order_by
+     * @return array
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getListStudents($_start, $_length, $_search, $_order_by)
+    {
+        $_order_by = $_order_by ? $_order_by : "std.id DESC";
+        $_student  = EntityName::ETUDIANT;
+
+        $_dql = "SELECT std.nom, std.adresse
+                 FROM $_student std
+                 WHERE std.nom LIKE :search
+                 OR std.adresse LIKE :search
+                 ORDER BY $_order_by";
+
+        $_query = $this->_entity_manager->createQuery($_dql);
+        $_query->setParameter(':search', '%' . $_search['value'] . '%')
+            ->setFirstResult($_start)
+            ->setMaxResults($_length);
+
+        $_results = $_query->getResult();
+
+        return ['results' => $_results, 'countResult' => $this->getCountStudent()];
+    }
+
+    /**
+     * @return int
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getCountStudent()
+    {
+        $_student = EntityName::ETUDIANT;
+
+        $_dql = "SELECT COUNT(std) AS nbTotal
+                 FROM $_student std";
+
+        $_query   = $this->_entity_manager->createQuery($_dql);
+        $_results = $_query->getOneOrNullResult();
+
+        return $_results['nbTotal'] ? $_results['nbTotal'] : 0;
+    }
 }

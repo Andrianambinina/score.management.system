@@ -34,36 +34,9 @@
                                         <tr role="row">
                                             <th>Nom</th>
                                             <th>Adresse</th>
-                                            <th>Niveau</th>
-                                            <th>Année</th>
-                                            <th>Action</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        {% for etudiant in etudiants %}
-                                            <tr role="row">
-                                                <td>{{ etudiant.nom }}</td>
-                                                <td>{{ etudiant.adresse }}</td>
-                                                <td>{{ etudiant.niveau ? etudiant.niveau.libelle }}</td>
-                                                <td>{{ etudiant.annee|date('Y') }}</td>
-                                                <td>
-                                                    <a href="{{ path('etudiant_show', { 'id': etudiant.id }) }}"
-                                                       data-toggle="tooltip" data-placement="top" title="Voir">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
-                                                    <a href="{{ path('etudiant_edit', { 'id': etudiant.id }) }}"
-                                                       data-toggle="tooltip" data-placement="top" title="Modifier">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    <a href="{{ path('etudiant_delete', { 'id': etudiant.id }) }}"
-                                                       data-toggle="tooltip" data-placement="top" title="Supprimer"
-                                                       class="kl-remove-elt">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -81,19 +54,21 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#id-list-student').DataTable({
-                "aaSorting": [],
-                "bProcessing": true,
-                "bFilter": true,
-                // "bPaginate": false,
-                "bInfo": true,
-                "lengthChange": true,
-                "oLanguage": {
-                    "sProcessing": '<i class="fa fa-spinner fa-pulse fa-fw"></i>',
-                    "sSearch": "Filtrer: ",
-                    "sLengthMenu": "Afficher _MENU_ enregistrement par page",
-                    "sEmptyTable": "Aucun enregistrement trouvé",
-                    "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrée",
-                }
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ path('etudiant_list_ajax') }}",
+                    "type": 'POST'
+                },
+                "columnDefs": [
+                    {"name": "nom", "targets": 0},
+                    {"name": "adresse", "targets": 1},
+                ],
+                "paging": true,
+                "info": true,
+                "searching": true,
+                "pageLength": 10,
+                "order": [[0, 'ASC']]
             });
         });
     </script>

@@ -9,6 +9,7 @@ use App\Score\Service\MetierManagerBundle\Utils\ServiceName;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -22,14 +23,34 @@ class EtudiantController extends AbstractController
      */
     public function indexAction()
     {
+        return $this->render('AdminBundle:Etudiant:index.html.twig');
+    }
+
+    /**
+     * @param Request $_request
+     * @return JsonResponse
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function listAjaxAction(Request $_request)
+    {
         // Get manager
-        $_utils_manager = $this->get(ServiceName::SRV_METIER_UTILS);
+        $_etudiant_manager = $this->get(ServiceName::SRV_METIER_ETUDIANT);
 
-        $_etudiants = $_utils_manager->getAllEntities(EntityName::ETUDIANT);
+        $_start    = $_request->request->get('start');
+        $_length   = $_request->request->get('length');
+        $_search   = $_request->request->get('search');
+        $_order_by = $_request->request->get('order_by');
 
-        return $this->render('AdminBundle:Etudiant:index.html.twig', [
-            'etudiants' => $_etudiants
-        ]);
+        $_results  = $_etudiant_manager->getListStudents($_start, $_length, $_search, $_order_by);
+        $_response = [
+            'recordsTotal'    => $_results['countResult'],
+            'recordsFiltered' => $_results['countResult'],
+            'data'            => array_map(function ($_val) {
+                return array_values($_val);
+            }, $_results['results'])
+        ];
+
+        return new JsonResponse($_response);
     }
 
     /**
@@ -74,7 +95,7 @@ class EtudiantController extends AbstractController
         $_etudiant = new Etudiant();
         $_form     = $this->createCreateForm($_etudiant);
         $_form->handleRequest($_request);
-        
+
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_utils_manager->saveEntity($_etudiant, 'new');
             $_flash_message = $this->get('translator')->trans('Ajout effectué avec succès');
