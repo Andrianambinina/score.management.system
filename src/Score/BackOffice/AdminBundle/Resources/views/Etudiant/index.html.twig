@@ -34,6 +34,7 @@
                                         <tr role="row">
                                             <th>Nom</th>
                                             <th>Adresse</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -53,22 +54,54 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#id-list-student').DataTable({
-                "processing": true,
-                "serverSide": true,
+            var dataTable = $('#id-list-student').DataTable({
+                "aaSorting": [],
+                "bProcessing": true,
+                "bFilter": true,
+                "bServerSide": true,
                 "ajax": {
-                    "url": "{{ path('etudiant_list_ajax') }}",
-                    "type": 'POST'
+                    "url": "{{ path('etudiant_list_ajax') }}"
                 },
                 "columnDefs": [
-                    {"name": "nom", "targets": 0},
-                    {"name": "adresse", "targets": 1},
+                    {name: "nom", targets: 0},
+                    {name: "adresse", targets: 1},
+                    {
+                        name: "id",
+                        render: function (data, type, row) {
+                            var href_show_default = "{{ path('etudiant_show', {'id': 0}) }}";
+                            var href_show = data ? href_show_default.replace('0', data) : "javascript:void(0)";
+                            var href_edit_default = "{{ path('etudiant_edit', {'id': 0}) }}";
+                            var href_edit = data ? href_edit_default.replace('0', data) : "javascript:void(0)";
+                            var href_delete_default = "{{ path('etudiant_delete', {'id': 0}) }}";
+                            var href_delete = data ? href_delete_default.replace('0', data) : "javascript:void(0)";
+                            return '<td><a href="' + href_show + '" data-toggle="tooltip" title="Voir">' +
+                                '       <i class="fa fa-eye"></i>' +
+                                '   </a></td>' +
+                                '   <td><a href="' + href_edit + '" data-toggle="tooltip" title="Modifier">' +
+                                '        <i class="fa fa-edit"></i>' +
+                                '   </a></td>' +
+                                '   <td><a href="' + href_delete + '" data-toggle="tooltip" title="Supprimer">' +
+                                '       <i class="fa fa-trash"></i>' +
+                                '   </a></td>';
+                        },
+                        targets: 2,
+                        orderable: false
+                    }
                 ],
-                "paging": true,
-                "info": true,
-                "searching": true,
-                "pageLength": 10,
-                "order": [[0, 'ASC']]
+                "oLanguage": {
+                    "sProcessing": "<i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i>",
+                    "oPaginate": {
+                        "sPrevious": "Precedent",
+                        "sNext": "Suivant",
+                    },
+                    "sSearch": "",
+                    "sLengthMenu": "Afficher _MENU_ enregistrement par page",
+                    "sEmptyTable": "Aucun enregistrement trouvé",
+                    "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrée",
+                },
+                "drawCallback": function () {
+                    $('[data-toggle="tooltip"]').tooltip();
+                }
             });
         });
     </script>

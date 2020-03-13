@@ -92,7 +92,7 @@ class ServiceMetierEtudiant
         $_order_by = $_order_by ? $_order_by : "std.id DESC";
         $_student  = EntityName::ETUDIANT;
 
-        $_dql = "SELECT std.nom, std.adresse
+        $_dql = "SELECT std.nom, std.adresse, std.id
                  FROM $_student std
                  WHERE std.nom LIKE :search
                  OR std.adresse LIKE :search

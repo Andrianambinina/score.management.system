@@ -6,7 +6,7 @@ etudiant_index:
 etudiant_list_ajax:
     path:     /list-ajax
     defaults: { _controller: "AdminBundle:Etudiant:listAjax" }
-    methods:  POST
+    methods:  GET
 
 etudiant_show:
     path:     /show/{id}
