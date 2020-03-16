@@ -23,7 +23,14 @@ class EtudiantController extends AbstractController
      */
     public function indexAction()
     {
-        return $this->render('AdminBundle:Etudiant:index.html.twig');
+        // Get manager
+        $_utils_manager = $this->get(ServiceName::SRV_METIER_UTILS);
+
+        $_niveaux = $_utils_manager->getAllEntities(EntityName::NIVEAU);
+
+        return $this->render('AdminBundle:Etudiant:index.html.twig', [
+            'niveaux' => $_niveaux
+        ]);
     }
 
     /**
@@ -36,12 +43,13 @@ class EtudiantController extends AbstractController
         // Get manager
         $_etudiant_manager = $this->get(ServiceName::SRV_METIER_ETUDIANT);
 
-        $_start    = $_request->request->get('start');
-        $_length   = $_request->request->get('length');
-        $_search   = $_request->request->get('search');
-        $_order_by = $_request->request->get('order_by');
+        $_start    = $_request->query->get('start');
+        $_length   = $_request->query->get('length');
+        $_search   = $_request->query->get('search');
+        $_niveau   = $_request->query->get('niveau');
+        $_order_by = $_request->query->get('order_by');
 
-        $_results  = $_etudiant_manager->getListStudents($_start, $_length, $_search, $_order_by);
+        $_results  = $_etudiant_manager->getListStudents($_start, $_length, $_search, $_niveau, $_order_by);
         $_response = [
             'recordsTotal'    => $_results['countResult'],
             'recordsFiltered' => $_results['countResult'],

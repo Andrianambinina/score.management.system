@@ -83,19 +83,25 @@ class ServiceMetierEtudiant
      * @param $_start
      * @param $_length
      * @param $_search
+     * @param $_niveau
      * @param $_order_by
      * @return array
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getListStudents($_start, $_length, $_search, $_order_by)
+    public function getListStudents($_start, $_length, $_search, $_niveau, $_order_by)
     {
-        $_order_by = $_order_by ? $_order_by : "std.id DESC";
-        $_student  = EntityName::ETUDIANT;
+        $_order_by  = $_order_by ? $_order_by : "std.id DESC";
+        $_student   = EntityName::ETUDIANT;
+        $_and_where = "";
+
+        if ($_niveau > 0)
+            $_and_where = "AND std.niveau = $_niveau";
 
         $_dql = "SELECT std.nom, std.adresse, std.id
                  FROM $_student std
-                 WHERE std.nom LIKE :search
-                 OR std.adresse LIKE :search
+                 WHERE (std.nom LIKE :search
+                        OR std.adresse LIKE :search)
+                 $_and_where
                  ORDER BY $_order_by";
 
         $_query = $this->_entity_manager->createQuery($_dql);

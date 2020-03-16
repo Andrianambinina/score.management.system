@@ -7,6 +7,17 @@
 {% block body %}
     <section class="content-header">
         <h1>Liste des étudiants</h1>
+        <br>
+        <div class="row">
+            <div class="col-xs-3">
+                <select class="form-control kl-select-niveau">
+                    <option value="">-- Sélectionner votre niveau --</option>
+                    {% for niveau in niveaux %}
+                        <option value="{{ niveau.id }}">{{ niveau.libelle }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
     </section>
 
     <section class="content">
@@ -54,13 +65,16 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var dataTable = $('#id-list-student').DataTable({
+            var student_data_table = $('#id-list-student').DataTable({
                 "aaSorting": [],
                 "bProcessing": true,
                 "bFilter": true,
                 "bServerSide": true,
                 "ajax": {
-                    "url": "{{ path('etudiant_list_ajax') }}"
+                    url: "{{ path('etudiant_list_ajax') }}",
+                    data: function (data) {
+                        data.niveau = $('.kl-select-niveau').val();
+                    }
                 },
                 "columnDefs": [
                     {name: "nom", targets: 0},
@@ -102,6 +116,10 @@
                 "drawCallback": function () {
                     $('[data-toggle="tooltip"]').tooltip();
                 }
+            });
+
+            $('.kl-select-niveau').on('change', function () {
+                student_data_table.draw();
             });
         });
     </script>
