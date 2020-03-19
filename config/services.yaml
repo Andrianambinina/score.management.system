@@ -10,6 +10,7 @@ parameters:
     locale: 'fr'
     from_email_address: '%env(resolve:FROM_EMAIL_ADDRESS)%'
     from_firstname: '%env(resolve:FROM_FIRSTNAME)%'
+    external_location_path: '%env(resolve:DATA_LOCATION_PATH)%'
 
 services:
     # makes classes in src/ available to be used as services
@@ -25,10 +26,16 @@ services:
 
     sc.manager.etudiant:
         class: App\Score\Service\MetierManagerBundle\Metier\Etudiant\ServiceMetierEtudiant
-        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+        arguments: ["@doctrine.orm.entity_manager", "@service_container", "%kernel.root_dir%"]
         public: true
 
     twig.extension.file.exists:
         class: App\Score\Service\MetierManagerBundle\Twig\Extension\FileExistsExtension
         tags:
             - { name: twig.extension }
+
+    sc.manager.import.student:
+        class: App\Score\Service\MetierManagerBundle\Command\ImportStudentCommand
+        arguments: ["@service_container"]
+        tags:
+            - { name: 'console.command', command: 'import:student' }
