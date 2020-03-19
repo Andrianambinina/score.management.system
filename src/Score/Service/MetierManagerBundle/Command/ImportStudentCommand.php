@@ -16,6 +16,10 @@ class ImportStudentCommand extends Command
 {
     private $_container;
 
+    /**
+     * ImportStudentCommand constructor.
+     * @param Container $_container
+     */
     public function __construct(Container $_container)
     {
         $this->_container = $_container;
@@ -29,13 +33,29 @@ class ImportStudentCommand extends Command
             ->setDescription('Students import');
     }
 
+    /**
+     * @param InputInterface $_input
+     * @param OutputInterface $_output
+     * @return int|null|void
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     */
     protected function execute(InputInterface $_input, OutputInterface $_output)
     {
         // Get manager
         $_student_manager = $this->_container->get(ServiceName::SRV_METIER_ETUDIANT);
 
-        $_student_manager->importStudent();
+        $_now = new \DateTime();
+        $_output->writeln('--- <comment>Début : ' . $_now->format('d-m-Y G:i:s') . ' ---</comment>');
 
-        $_output->writeln('Commande executer');
+        $_message = "Une erreur interne s'est produite. Veuillez rééssayer";
+        $_check_import = $_student_manager->importStudent($_output);
+        if ($_check_import) {
+            $_message = " Importation éffectué avec succés ! ";
+        }
+        $_output->writeln(PHP_EOL . $_message);
+        $_output->writeln('--- <comment>Fin : ' . $_now->format('d-m-Y G:i:s') . ' ---</comment>');
     }
 }

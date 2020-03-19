@@ -7,6 +7,7 @@ use App\Score\Service\MetierManagerBundle\Entity\Niveau;
 use App\Score\Service\MetierManagerBundle\Utils\EntityName;
 use App\Score\Service\MetierManagerBundle\Utils\ServiceName;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
@@ -137,13 +138,14 @@ class ServiceMetierEtudiant
     }
 
     /**
+     * @param $_output
      * @return bool
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public function importStudent()
+    public function importStudent($_output)
     {
         $_source_path = $this->_container->getParameter('external_location_path');
         $_file_name   = $this->_web_root . $_source_path;
@@ -162,7 +164,7 @@ class ServiceMetierEtudiant
                     $_sheet_name = ucfirst($_spread_sheet->getSheetNames()[$_i]);
                     $_level      = $this->findOrCreateLevelByName($_sheet_name);
 
-                    $this->UpdateOrCreateStudentByLevel($_data_body, $_level);
+                    $this->UpdateOrCreateStudentByLevel($_data_body, $_level, $_output);
                 }
             }
             return true;
@@ -196,10 +198,16 @@ class ServiceMetierEtudiant
     /**
      * @param $_data
      * @param $_level
+     * @param $_output
      * @throws \Exception
      */
-    public function UpdateOrCreateStudentByLevel($_data, $_level)
+    public function UpdateOrCreateStudentByLevel($_data, $_level, $_output)
     {
+        $_progress_bar = new ProgressBar($_output, count($_data));
+        $_progress_bar->setBarCharacter('<fg=green>⚬</>');
+        $_progress_bar->setEmptyBarCharacter("<fg=red>⚬</>");
+        $_progress_bar->setProgressCharacter("<fg=green>➤</>");
+
         foreach ($_data as $_student) {
             // Get manager
             $_utils_manager   = $this->_container->get(ServiceName::SRV_METIER_UTILS);
@@ -219,6 +227,10 @@ class ServiceMetierEtudiant
                 $_action = 'update';
 
             $_utils_manager->saveEntity($_student_to_save, $_action);
+
+            $_progress_bar->advance();
         }
+
+        $_progress_bar->finish();
     }
 }
