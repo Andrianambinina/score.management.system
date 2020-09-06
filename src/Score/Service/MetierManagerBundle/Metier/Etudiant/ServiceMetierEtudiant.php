@@ -54,10 +54,10 @@ class ServiceMetierEtudiant
         $_data = [];
         foreach ($_results as $_note) {
             array_push($_data, [
-                'designation' => $_note->getMatiere()->getLibelle(),
-                'coefficient' => $_note->getMatiere()->getCoefficient(),
+                'designation' => $_note->getMatiere() ? $_note->getMatiere()->getLibelle() : null,
+                'coefficient' => $_note->getMatiere() ? $_note->getMatiere()->getCoefficient() : null,
                 'note'        => $_note->getNote(),
-                'ponderee'    => ($_note->getMatiere()->getCoefficient() * $_note->getNote())
+                'ponderee'    => $_note->getMatiere() ? ($_note->getMatiere()->getCoefficient() * $_note->getNote()) : null
             ]);
         }
 
